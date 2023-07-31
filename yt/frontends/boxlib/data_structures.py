@@ -35,7 +35,7 @@ _1dregx = r"-?\d+"
 _2dregx = r"-?\d+,-?\d+"
 _3dregx = r"-?\d+,-?\d+,-?\d+"
 _dim_finder = [
-    re.compile(rf"\(\(({ndregx})\) \(({ndregx})\) \({ndregx}\)\)$")
+    re.compile(rf"\(\(({ndregx})\) \(({ndregx})\)\)$")
     for ndregx in (_1dregx, _2dregx, _3dregx)
 ]
 # This is the line that prefixes each set of data for a FAB in the FAB file
@@ -47,7 +47,6 @@ _header_pattern = [
         \(
               \(( {ndregx} )\)          # match `start`
             \ \(( {ndregx} )\)          # match `end`
-            \ \(( {ndregx} )\)          # match `centering`
         \)
         \ (-?\d+)                       # match `nc`
         $ # end of line
@@ -472,7 +471,7 @@ class BoxlibHierarchy(GridIndex):
         with open(os.path.expanduser(test_grid.filename), "rb") as f:
             header = f.readline().decode("ascii", "ignore")
 
-        bpr, endian, start, stop, centering, nc = (
+        bpr, endian, start, stop, nc = (
             _header_pattern[self.dimensionality - 1].search(header).groups()
         )
         # Note that previously we were using a different value for BPR than we
